@@ -1,7 +1,7 @@
-title: Rasmus & Rebecka
+title: Rebecka & Rasmus
 description: Välkommen till vår bröllopssida!
 theme: minima
-url: "https://rasmusrebecka.github.io"
+url: "https://rebeckarasmus.github.io"
 plugins:
   - jekyll-feed
   - jekyll-sitemap
