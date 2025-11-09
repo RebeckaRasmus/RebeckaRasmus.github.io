@@ -1,3 +1,7 @@
-theme: jekyll-theme-minimal
-title: Rasmus&Rebecka
-description: Askersund 2026
+title: Rasmus & Rebecka
+description: Välkommen till vår bröllopssida!
+theme: minim
+url: "https://rasmusrebecka.github.io"
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
