@@ -20,7 +20,7 @@ layout: home
 <div class="full-bleed">
   <section class="hero">
     <div class="content">
-      <h1>Rasmus &amp; Rebecka</h1>
+      <h1>Rebecka &amp; Rasmus</h1>
       <h2>September 2025</h2>
     </div>
   </section>
