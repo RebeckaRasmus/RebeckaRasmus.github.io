@@ -18,4 +18,4 @@ layout: default
 
 Här hittar du all info om vårt bröllop: tid, plats, schema och OSA.
 
-[OSA här »](/wedding/osa)
+[OSA här »](/osa.html)
