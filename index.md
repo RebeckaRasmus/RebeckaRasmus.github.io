@@ -1,7 +1,9 @@
 ---
 layout: home
-title: Välkommen
+title: Title
 ---
+
+![image](/images/home.jpeg)
 
 # Välkommen!
 Här hittar du all info om vårt bröllop: tid, plats, schema och OSA.
