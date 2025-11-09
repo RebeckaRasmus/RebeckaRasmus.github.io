@@ -1,0 +1,44 @@
+/* --- full-bleed wrapper that escapes Minima's narrow column --- */
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* hero look + layering so nav remains clickable */
+.hero {
+  background: url("/images/home_v2.jpeg") center/cover no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+
+  position: relative;  /* create stacking context */
+  z-index: 0;          /* behind header */
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: -1;             /* overlay behind text */
+  pointer-events: none;    /* never block clicks */
+}
+.hero > .content { position: relative; z-index: 1; }
+.hero h1 { font-size: 4rem; margin: 0; line-height: 1.1; }
+.hero h2 { font-weight: 300; margin: .5rem 0 0; }
+
+/* keep header & mobile menu above hero */
+.site-header { position: relative; z-index: 1000; }
+.site-nav,
+.site-nav .menu-icon,
+.site-nav label[for="nav-trigger"],
+.site-header .trigger { position: relative; z-index: 1001; }
+
+/* avoid tiny horizontal scroll from the 100vw trick */
+body { overflow-x: hidden; }
