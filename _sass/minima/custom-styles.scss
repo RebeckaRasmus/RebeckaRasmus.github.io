@@ -108,6 +108,19 @@
   .site-nav .page-link:not(:last-child) {
     border-bottom: 1px solid #e8e8e8;
   }
+
+  .hero h1 {
+    font-size: 2.2rem; /* Reduced size for phones */
+  }
+
+  .hero h2 {
+    font-size: 1.2rem; /* Reduced size for phones */
+  }
+
+  .hero {
+    height: 60vh; /* Optional: Make the hero section shorter on mobile */
+  }
+
 }
 
 .site-nav,
