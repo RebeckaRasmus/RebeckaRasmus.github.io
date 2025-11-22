@@ -9,6 +9,10 @@ title: "Home"
     <div class="content">
       <h1>Rasmus &amp; Rebecka</h1>
       <h2>29 augusti 2026</h2>
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   </section>
 </div>

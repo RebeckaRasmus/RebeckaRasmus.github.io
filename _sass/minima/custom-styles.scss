@@ -21,10 +21,10 @@
 
 /* hero look + layering so nav remains clickable */
 .hero {
-  background: url("/images/home.jpeg") center/cover no-repeat;
+  background: url("/images/home.jpeg") 50% 40%/cover no-repeat;
   height: 80vh;
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   color: #fff;
   text-align: center;
@@ -50,12 +50,12 @@
 }
 
 .hero h1 {
-  font-family: "Caveat", cursive;
-  font-size: 4rem;
+  font-family: "Playfair Display", serif;
+  font-size: 4rem; /* Or larger */
 }
 
 .hero h2 {
-  font-family: "Caveat", cursive;
+  font-family: "Montserrat", sans-serif;
   font-weight: 300;
   font-size: 1.8rem;
 }
@@ -119,6 +119,8 @@
 }
 
 
+
+/*-- Google Map part: Start --*/
 .map-container {
   position: relative;
   width: 100%;
@@ -134,6 +136,11 @@
   height: 100%;
   border: 0;
 }
+
+/*-- Google Map part: End --*/
+
+
+/*-- Google calender part: Start --*/
 
 .calendar-button {
   display: inline-flex;
@@ -152,8 +159,10 @@
 .calendar-button:hover {
   background: #f5f5f5;
 }
+/*-- Google calender part: Start --*/
 
-/* Override Minima default padding on main content */
+
+/* Remove the white square above the image */
 .page-content {
   padding: 0 !important;
   flex: 1;
