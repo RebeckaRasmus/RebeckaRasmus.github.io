@@ -11,8 +11,6 @@ title: "Home"
       <h2>29 augusti 2026</h2>
       <br />
       <br />
-      <br />
-      <br />
     </div>
   </section>
 </div>
