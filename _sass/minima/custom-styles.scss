@@ -20,7 +20,7 @@
 }
 
 .heroBoende {
-  background: url("/assets/images/boende2.jpg") 50% 40%/cover no-repeat;
+  background: url("/assets/images/boende2.jpg") 50% 80%/cover no-repeat;
   height: 80vh;
   display: flex;
   align-items: end;
@@ -31,6 +31,24 @@
   z-index: 0;
   margin: 0;
 }
+
+
+.heroBoende::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.12);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.heroBoende > .content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
 
 .heroBoende h1 {
   font-family: "Playfair Display", serif;
@@ -62,7 +80,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.35);
+  background: rgba(0,0,0,0.12);
   z-index: -1;
   pointer-events: none;
 }
@@ -143,6 +161,18 @@
   }
 
   .hero {
+    height: 60vh; /* Optional: Make the hero section shorter on mobile */
+  }
+
+  .heroBoende  h1 {
+    font-size: 2.2rem; /* Reduced size for phones */
+  }
+
+  .heroBoende  h2 {
+    font-size: 1.2rem; /* Reduced size for phones */
+  }
+
+  .heroBoende  {
     height: 60vh; /* Optional: Make the hero section shorter on mobile */
   }
 
