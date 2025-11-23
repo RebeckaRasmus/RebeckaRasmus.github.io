@@ -103,6 +103,61 @@
   font-size: 1.8rem;
 }
 
+.heroOsa {
+  background: url("/assets/images/heroOsa.jpeg") 50% 50%/cover no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 0;
+  margin: 0;
+}
+
+.heroOsa::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.12);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.heroOsa > .content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.heroOsa h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 4rem;
+}
+
+.heroOsa h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 1.8rem;
+}
+
+@media screen and (max-width: 600px) {
+  .heroOsa h1 {
+    font-size: 2.2rem;
+  }
+
+  .heroOsa h2 {
+    font-size: 1.2rem;
+  }
+
+  .heroOsa {
+    height: 60vh;
+  }
+}
+
+
 /* hero look + layering so nav remains clickable */
 .hero {
   background: url("/assets/images/home.jpeg") 50% 40%/cover no-repeat;
