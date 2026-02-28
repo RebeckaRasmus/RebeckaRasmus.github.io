@@ -431,7 +431,7 @@
 
     /* ── PWA INSTALL BANNER ── */
     #install-banner {
-      display: none;
+      display: none; /* hidden until beforeinstallprompt fires */
       position: fixed;
       bottom: 1.5rem;
       left: 50%;
@@ -441,7 +441,6 @@
       color: var(--paper);
       padding: 1rem 1.75rem;
       border: 1px solid var(--gold);
-      display: flex;
       align-items: center;
       gap: 1.25rem;
       font-size: .82rem;
@@ -449,13 +448,51 @@
       max-width: 420px;
       width: calc(100% - 3rem);
     }
-    #install-banner.hidden { display: none !important; }
+    #install-banner.visible { display: flex; }
     .install-text { flex: 1; line-height: 1.4; }
     .install-text strong { font-family: var(--ff-serif); font-style: italic; font-size: 1rem; font-weight: 400; color: var(--gold); display: block; }
     .install-close {
       background: none; border: none; color: rgba(247,245,240,.4);
       cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 0;
     }
+
+    /* manual save hint */
+    #save-hint {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.25rem 1.75rem;
+      border: 1px solid var(--gold);
+      font-size: .82rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+      max-width: 420px;
+      width: calc(100% - 3rem);
+      line-height: 1.6;
+    }
+    #save-hint.visible { display: block; }
+    #save-hint strong { font-family: var(--ff-serif); font-style: italic; font-size: 1rem; color: var(--gold); display: block; margin-bottom: .5rem; }
+    #save-hint .hint-close { float: right; background: none; border: none; color: rgba(247,245,240,.4); cursor: pointer; font-size: 1.2rem; margin-left: 1rem; }
+
+    /* save button in nav */
+    .nav-save-btn {
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: .4rem .9rem;
+      cursor: pointer;
+      font-family: var(--ff-sans);
+      transition: background .2s, color .2s;
+    }
+    .nav-save-btn:hover { background: var(--gold); color: var(--paper); }
+    @media (max-width: 720px) { .nav-save-btn { display: none; } }
 
     /* ── KEYFRAMES ── */
     @keyframes fadeUp {
@@ -489,6 +526,7 @@
     <li><a href="#rsvp">OSA</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
+  <button class="nav-save-btn" id="nav-save-btn" onclick="showSaveHint()">📎 Spara sidan</button>
   <button class="burger" id="burger" aria-label="Meny">
     <span></span><span></span><span></span>
   </button>
@@ -711,7 +749,7 @@
   29 Augusti 2026 · Askersund
 </footer>
 
-<!-- PWA INSTALL BANNER -->
+<!-- PWA AUTO BANNER (Android/Chrome only, shown when browser is ready) -->
 <div id="install-banner">
   <div class="install-text">
     <strong>Spara till hemskärmen</strong>
@@ -719,6 +757,13 @@
   </div>
   <button class="btn" id="install-btn" style="white-space:nowrap; margin:0; padding:.6rem 1.2rem; font-size:.68rem;">Lägg till</button>
   <button class="install-close" id="install-close" aria-label="Stäng">×</button>
+</div>
+
+<!-- MANUAL SAVE HINT (always works, all devices) -->
+<div id="save-hint">
+  <button class="hint-close" onclick="document.getElementById('save-hint').classList.remove('visible')">×</button>
+  <strong id="hint-title">Spara till hemskärmen</strong>
+  <span id="hint-text"></span>
 </div>
 
 <script>
@@ -761,30 +806,58 @@
     e.target.innerHTML = '<p style="font-family:var(--ff-serif);font-style:italic;font-size:1.5rem;color:var(--gold)">Tack! Vi ses snart. 🥂</p>';
   }
 
-  // ── PWA INSTALL ──
-  let deferredPrompt;
+  // ── PWA AUTO INSTALL (Android/Chrome) ──
+  let deferredPrompt = null;
   const banner = document.getElementById('install-banner');
   const installBtn = document.getElementById('install-btn');
   const closeBtn = document.getElementById('install-close');
 
+  // Only show banner when browser explicitly says it's ready
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
     deferredPrompt = e;
-    banner.classList.remove('hidden');
-    banner.style.display = 'flex';
+    banner.classList.add('visible'); // show now that we have the prompt
   });
 
   installBtn.addEventListener('click', async () => {
     if (!deferredPrompt) return;
-    deferredPrompt.prompt();
+    await deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     deferredPrompt = null;
-    banner.classList.add('hidden');
+    banner.classList.remove('visible');
   });
 
   closeBtn.addEventListener('click', () => {
-    banner.classList.add('hidden');
+    banner.classList.remove('visible');
   });
+
+  // Hide auto-banner if app already installed
+  window.addEventListener('appinstalled', () => {
+    banner.classList.remove('visible');
+    deferredPrompt = null;
+  });
+
+  // ── MANUAL SAVE HINT (works on all devices) ──
+  function showSaveHint() {
+    const ua = navigator.userAgent;
+    const hint = document.getElementById('save-hint');
+    const text = document.getElementById('hint-text');
+
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      text.innerHTML = 'På iPhone: tryck på <b>dela-ikonen</b> (□↑) längst ner i Safari, sedan <b>"Lägg till på hemskärmen"</b>.';
+    } else if (/Android/.test(ua)) {
+      if (deferredPrompt) {
+        // We have the prompt — just trigger it directly
+        hint.classList.remove('visible');
+        deferredPrompt.prompt();
+        return;
+      }
+      text.innerHTML = 'I Chrome: tryck på <b>⋮ menyn</b> uppe till höger, sedan <b>"Lägg till på startskärmen"</b>.';
+    } else {
+      text.innerHTML = 'Tryck <b>Ctrl+D</b> (Windows) eller <b>Cmd+D</b> (Mac) för att bokmärka sidan.';
+    }
+    hint.classList.add('visible');
+  }
 
   // Register service worker
   if ('serviceWorker' in navigator) {
