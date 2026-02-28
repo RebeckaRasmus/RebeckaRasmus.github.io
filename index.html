@@ -150,22 +150,35 @@
       .hero-text { padding: 4rem 2rem 3rem; }
       .hero-img { min-height: 260px; }
     }
+   /* ── INTRO + GALLERY ── */
+    #intro { background: var(--white); padding-bottom: 0; }
+    .intro-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .intro-text p { max-width: none; }
+    .intro-img { position: relative; overflow: hidden; height: 480px; background: var(--mid); }
+    .intro-img .photo-placeholder { position: absolute; inset: 0; }
+    .intro-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 700px) {
+      .intro-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .intro-img { height: 280px; }
+    }
 
-    /* ── SECTIONS ── */
-    section { padding: 6rem 2rem; }
-    .container { max-width: 860px; margin: 0 auto; }
-    .container-wide { max-width: 1100px; margin: 0 auto; }
-    .section-kicker {
-      font-size: .63rem; font-weight: 700; letter-spacing: .22em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 300px 300px;
+      gap: .5rem;
+      margin-top: .5rem;
     }
-    h2 {
-      font-family: var(--ff-serif); font-weight: 400;
-      font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 2rem;
+    .gallery-cell { background: var(--mid); overflow: hidden; position: relative; }
+    .gallery-cell .photo-placeholder { position: absolute; inset: 0; }
+    .gallery-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-cell.tall { grid-row: span 2; }
+    .gallery-cell.wide { grid-column: span 2; }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 200px); }
+      .gallery-cell.tall { grid-row: span 1; }
+      .gallery-cell.wide { grid-column: span 2; }
     }
-    h2 em { font-style: italic; }
-    p { color: #4a4640; margin-bottom: 1rem; max-width: 60ch; }
-    hr.divider { border: none; border-top: 1px solid var(--mid); }
 
     /* ── TOASTMASTERS ── */
     #toast { background: var(--off); }
@@ -315,9 +328,11 @@
 <nav>
   <a class="nav-logo" href="#hero">Rebecka & Rasmus</a>
   <ul class="nav-links">
+    <li><a href="#intro">Om oss</a></li>
     <li><a href="#schema">Schema</a></li>
     <li><a href="#toast">Toastmasters</a></li>
     <li><a href="#boende">Boende</a></li>
+    <li><a href="#presenter">Presenter</a></li>
     <li><a href="#osa">OSA</a></li>
   </ul>
   <!-- <button class="nav-save-btn" onclick="showSaveHint()">📎 Spara sidan</button> -->
@@ -325,9 +340,11 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
+  <a href="#intro" class="menu-link">Om oss</a>
   <a href="#schema" class="menu-link">Schema</a>
   <a href="#toast" class="menu-link">Toastmasters</a>
   <a href="#boende" class="menu-link">Boende</a>
+  <a href="#presenter" class="menu-link">Presenter</a>
   <a href="#osa" class="menu-link">OSA</a>
 </div>
 
@@ -362,6 +379,369 @@
 
 <hr class="divider" />
 
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rebecka & Rasmus — 29 Augusti 2026</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1c1c1c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="R&R 2026" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #1c1c1c;
+      --white:  #ffffff;
+      --off:    #f5f3ef;
+      --mid:    #e8e4dc;
+      --muted:  #888078;
+      --accent: #8b4a4a;
+      --ff-serif: 'Playfair Display', Georgia, serif;
+      --ff-sans:  'Lato', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--ff-sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 54px;
+    }
+    .nav-logo {
+      font-family: var(--ff-serif); font-style: italic; font-size: 1.1rem;
+      color: var(--white); text-decoration: none; white-space: nowrap;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a {
+      display: block; padding: 0 .85rem; height: 54px; line-height: 54px;
+      font-size: .6rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+      text-decoration: none; color: rgba(255,255,255,.6); transition: color .2s, background .2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,.05); }
+
+    .nav-save-btn {
+      font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      background: none; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6);
+      padding: .35rem .85rem; cursor: pointer; font-family: var(--ff-sans);
+      transition: all .2s; white-space: nowrap;
+    }
+    .nav-save-btn:hover { border-color: var(--white); color: var(--white); }
+
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .burger span { display: block; width: 22px; height: 1px; background: var(--white); transition: transform .3s, opacity .3s; }
+    .burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; inset: 54px 0 0; z-index: 99;
+      background: var(--black); flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      text-decoration: none; color: rgba(255,255,255,.6); transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--white); }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .nav-save-btn { display: none; }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: 54px; min-height: 92svh;
+      display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 6rem 6rem;
+    }
+    .hero-kicker {
+      font-size: .67rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.5rem; animation: fadeUp .7s .1s both;
+    }
+    .hero-names {
+      font-family: var(--ff-serif); font-weight: 400;
+      font-size: clamp(3rem, 5.5vw, 5.5rem); line-height: 1.05;
+      margin-bottom: 1.75rem; animation: fadeUp .7s .25s both;
+    }
+    .hero-names em { font-style: italic; }
+    .hero-place {
+      font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); line-height: 2; animation: fadeUp .7s .4s both;
+    }
+    .hero-place span { color: var(--accent); }
+    .hero-countdown {
+      margin-top: 2rem;
+      animation: fadeUp .7s .55s both;
+    }
+    .countdown-boxes { display: flex; gap: 1rem; margin-top: .5rem; }
+    .countdown-box { text-align: center; }
+    .countdown-num {
+      font-family: var(--ff-serif); font-size: 2rem; line-height: 1;
+      display: block; color: var(--black);
+    }
+    .countdown-lbl {
+      font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem;
+      animation: fadeUp .7s .65s both;
+    }
+    .hero-img {
+      background: var(--mid); position: relative; overflow: hidden;
+      min-height: 500px; animation: fadeIn .9s .2s both;
+    }
+    .photo-placeholder {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; color: var(--muted);
+      font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; gap: .75rem;
+    }
+    .photo-placeholder::before {
+      content: ''; width: 36px; height: 36px;
+      border: 1px solid rgba(136,128,120,.4); border-radius: 50%;
+    }
+
+    @media (max-width: 700px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-text { padding: 4rem 2rem 3rem; }
+      .hero-img { min-height: 260px; }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 860px; margin: 0 auto; }
+    .container-wide { max-width: 1100px; margin: 0 auto; }
+    .section-kicker {
+      font-size: .63rem; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: var(--ff-serif); font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 2rem;
+    }
+    h2 em { font-style: italic; }
+    p { color: #4a4640; margin-bottom: 1rem; max-width: 60ch; }
+    hr.divider { border: none; border-top: 1px solid var(--mid); }
+
+    /* ── INTRO + GALLERY ── */
+    #intro { background: var(--white); padding-bottom: 0; }
+    .intro-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .intro-text p { max-width: none; }
+    .intro-img { position: relative; overflow: hidden; height: 480px; background: var(--mid); }
+    .intro-img .photo-placeholder { position: absolute; inset: 0; }
+    .intro-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 700px) {
+      .intro-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .intro-img { height: 280px; }
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 300px 300px;
+      gap: .5rem;
+      margin-top: .5rem;
+    }
+    .gallery-cell { background: var(--mid); overflow: hidden; position: relative; }
+    .gallery-cell .photo-placeholder { position: absolute; inset: 0; }
+    .gallery-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-cell.tall { grid-row: span 2; }
+    .gallery-cell.wide { grid-column: span 2; }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 200px); }
+      .gallery-cell.tall { grid-row: span 1; }
+      .gallery-cell.wide { grid-column: span 2; }
+    }
+
+    /* ── TOASTMASTERS ── */
+    #toast { background: var(--off); }
+    .toast-layout { display: grid; grid-template-columns: 340px 1fr; gap: 4rem; align-items: center; margin-top: 1rem; }
+    .toast-img { overflow: hidden; }
+    .toast-img img { width: 100%; height: 420px; object-fit: cover; object-position: top; display: block; }
+    .toast-text p { max-width: none; }
+    @media (max-width: 700px) {
+      .toast-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .toast-img img { height: 300px; }
+    }
+
+    /* ── SCHEDULE ── */
+    #schema { background: var(--off); }
+    .sched-day { margin-bottom: 3rem; }
+    .sched-day-label {
+      font-family: var(--ff-serif); font-style: italic; font-size: 1.4rem;
+      margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--mid);
+    }
+    .event {
+      display: grid; grid-template-columns: 70px 1fr; gap: 1.5rem;
+      padding: 1rem 0; border-bottom: 1px solid var(--mid);
+    }
+    .event:last-child { border: none; }
+    .event-time { font-size: .7rem; font-weight: 700; letter-spacing: .08em; color: var(--accent); padding-top: .2rem; }
+    .event-name { font-family: var(--ff-serif); font-size: 1.05rem; margin-bottom: .1rem; }
+    .event-info { font-size: .84rem; color: var(--muted); margin: 0; }
+
+    /* ── LOCATION / BOENDE ── */
+    #boende { background: var(--white); }
+    .loc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px; background: var(--mid); border: 1px solid var(--mid); margin-top: 2.5rem;
+    }
+    .loc-card { background: var(--white); padding: 2rem 2rem 1.75rem; }
+    .loc-tag { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
+    .loc-card h3 { font-family: var(--ff-serif); font-size: 1.2rem; font-weight: 400; margin-bottom: .5rem; }
+    .loc-card p { font-size: .84rem; color: var(--muted); margin: 0 0 1rem; max-width: none; }
+    .loc-card a {
+      font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      text-decoration: none; color: var(--black); border-bottom: 1px solid var(--black);
+      padding-bottom: 1px; transition: color .2s, border-color .2s;
+    }
+    .loc-card a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* map */
+    .map-container { margin-top: 2.5rem; border: 1px solid var(--mid); overflow: hidden; }
+    .map-container iframe { width: 100%; height: 320px; border: none; display: block; }
+
+    /* ── OSA ── */
+    #osa { background: var(--black); color: var(--white); }
+    #osa .section-kicker { color: rgba(255,255,255,.4); }
+    #osa h2 { color: var(--white); }
+    #osa > .container > p { color: rgba(255,255,255,.5); max-width: none; }
+    .osa-intro { text-align: center; margin-bottom: 2.5rem; }
+    .osa-intro p { color: rgba(255,255,255,.55); margin: 0 auto; }
+    .form-container {
+      background: var(--white);
+      overflow: hidden;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .form-container iframe {
+      width: 100%; border: none; min-height: 1200px; display: block;
+    }
+    @media (max-width: 600px) {
+      .form-container iframe { min-height: 1450px; }
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.75rem;
+      font-family: var(--ff-sans); font-size: .63rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .btn-dark { background: var(--black); color: var(--white); }
+    .btn-dark:hover { background: var(--accent); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.75);
+    }
+    .btn-outline:hover { border-color: var(--white); color: var(--white); }
+    .btn-light { background: var(--white); color: var(--black); }
+    .btn-light:hover { background: var(--accent); color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black); color: rgba(255,255,255,.3);
+      text-align: center; padding: 2.5rem 2rem 3rem;
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    }
+    .footer-names {
+      display: block; font-family: var(--ff-serif); font-style: italic;
+      font-size: 1.6rem; color: rgba(255,255,255,.45);
+      letter-spacing: 0; text-transform: none; margin-bottom: .75rem;
+      text-decoration: none;
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Rebecka & Rasmus</a>
+  <ul class="nav-links">
+    <li><a href="#intro">Om oss</a></li>
+    <li><a href="#schema">Schema</a></li>
+    <li><a href="#toast">Toastmasters</a></li>
+    <li><a href="#boende">Boende</a></li>
+    <li><a href="#presenter">Presenter</a></li>
+    <li><a href="#osa">OSA</a></li>
+  </ul>
+
+  <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#intro" class="menu-link">Om oss</a>
+  <a href="#schema" class="menu-link">Schema</a>
+  <a href="#toast" class="menu-link">Toastmasters</a>
+  <a href="#boende" class="menu-link">Boende</a>
+  <a href="#presenter" class="menu-link">Presenter</a>
+  <a href="#osa" class="menu-link">OSA</a>
+</div>
+
+
+<!-- INTRO + GALLERY -->
+<section id="intro">
+  <div class="container">
+    <div class="intro-layout reveal">
+      <div class="intro-text">
+        <p class="section-kicker">Välkommen</p>
+        <h2>Vi gifter oss <em>äntligen!</em></h2>
+        <p>Bröllopsfirandet smygstartar redan på fredagen den 28:e augusti. Själva vigseln sker på lördagen den 29 augusti i den lilla sköna staden Askersund.</p>
+        <p>Bröllopet äger rum i Askersunds landskyrka, sedan bär det av för middag och fest på Stjernsunds slott.</p>
+      </div>
+      <div class="intro-img">
+        <div class="photo-placeholder">Foto här</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-wide" style="margin-top:4rem;">
+    <div class="gallery-grid reveal">
+      <div class="gallery-cell tall"><img src="img/gallery_1.jpeg" alt="" /></div>
+      <div class="gallery-cell"><img src="img/gallery_2.jpeg" alt="" /></div>
+      <div class="gallery-cell"><img src="img/gallery_3.jpeg" alt="" /></div>
+      <div class="gallery-cell wide"><img src="img/gallery_4.jpeg" alt="" /></div>
+      <div class="gallery-cell"><div class="photo-placeholder">Foto 5</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
 
 <!-- SCHEMA -->
 <section id="schema">
@@ -447,6 +827,22 @@
 
 <hr class="divider" />
 
+
+<!-- PRESENTER -->
+<section id="presenter">
+  <div class="container">
+    <p class="section-kicker reveal">Presenter</p>
+    <h2 class="reveal">Gåvor &amp; <em>önskelista</em></h2>
+    <div class="reveal" style="max-width:560px">
+      <p>Er närvaro är den finaste gåvan av alla. Om ni ändå önskar ge något tar vi gärna emot ett bidrag till vår bröllopsresa.</p>
+      <p>Swisha gärna till XXXX: <strong>[NUMMER]</strong><br>
+      eller bankgiro till <strong>[NAMN]: [KONTONUMMER]</strong></p>
+      <p>Önskelista: <strong>[LÄNK]</strong></p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
 
 <!-- BOENDE & PLATSER -->
 <section id="boende">
