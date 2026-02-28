@@ -167,6 +167,17 @@
     p { color: #4a4640; margin-bottom: 1rem; max-width: 60ch; }
     hr.divider { border: none; border-top: 1px solid var(--mid); }
 
+    /* ── TOASTMASTERS ── */
+    #toast { background: var(--off); }
+    .toast-layout { display: grid; grid-template-columns: 340px 1fr; gap: 4rem; align-items: center; margin-top: 1rem; }
+    .toast-img { overflow: hidden; }
+    .toast-img img { width: 100%; height: 420px; object-fit: cover; object-position: top; display: block; }
+    .toast-text p { max-width: none; }
+    @media (max-width: 700px) {
+      .toast-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .toast-img img { height: 300px; }
+    }
+
     /* ── SCHEDULE ── */
     #schema { background: var(--off); }
     .sched-day { margin-bottom: 3rem; }
@@ -305,15 +316,17 @@
   <a class="nav-logo" href="#hero">Rebecka & Rasmus</a>
   <ul class="nav-links">
     <li><a href="#schema">Schema</a></li>
+    <li><a href="#toast">Toastmasters</a></li>
     <li><a href="#boende">Boende</a></li>
     <li><a href="#osa">OSA</a></li>
   </ul>
-  <button class="nav-save-btn" onclick="showSaveHint()">📎 Spara sidan</button>
+  <!-- <button class="nav-save-btn" onclick="showSaveHint()">📎 Spara sidan</button> -->
   <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#schema" class="menu-link">Schema</a>
+  <a href="#toast" class="menu-link">Toastmasters</a>
   <a href="#boende" class="menu-link">Boende</a>
   <a href="#osa" class="menu-link">OSA</a>
 </div>
@@ -343,11 +356,12 @@
     </div>
   </div>
   <div class="hero-img">
-    <div class="photo-placeholder">Foto här</div>
+    <img src="img/home.jpeg" alt="Rebecka och Rasmus" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
   </div>
 </section>
 
 <hr class="divider" />
+
 
 <!-- SCHEMA -->
 <section id="schema">
@@ -412,6 +426,27 @@
 </section>
 
 <hr class="divider" />
+
+<!-- TOASTMASTERS -->
+<section id="toast">
+  <div class="container">
+    <p class="section-kicker reveal">Toastmasters</p>
+    <h2 class="reveal">Erik <em>&amp; Jessika</em></h2>
+    <div class="toast-layout reveal">
+      <div class="toast-img">
+        <img src="img/toastmasters.jpeg" alt="Erik och Jessika" />
+      </div>
+      <div class="toast-text">
+        <p>Brudens syster och brudgummens best man — vi kunde inte ha valt bättre toastmasters!</p>
+        <p>Har du frågor kring vigseln, festen eller vill anmäla ett tal? Hör av dig till Erik och Jessika.</p>
+        <a href="mailto:[E-POST]" class="btn btn-dark" style="margin-top:.5rem;">✉️ Skicka mejl</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
 
 <!-- BOENDE & PLATSER -->
 <section id="boende">
