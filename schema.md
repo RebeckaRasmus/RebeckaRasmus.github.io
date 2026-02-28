@@ -7,7 +7,7 @@ title: "Schema"
   <section class="heroSchema">
     <div class="content">
       <h1>Rebecka &amp; Rasmus</h1>
-      <h2>29 augusti 2026</h2>
+      <h2>29 augusti 2026 </h2>
       <div id="countdown"></div>
       <script src="/assets/script.js"></script>
       <br />
