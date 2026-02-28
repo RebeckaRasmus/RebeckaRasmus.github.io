@@ -6,7 +6,7 @@ title: "Schema"
 <div class="full-bleed">
   <section class="heroSchema">
     <div class="content">
-      <h1>Rebecka &amp; Rasmus </h1>
+      <h1>Rebecka &amp; Rasmus</h1>
       <h2>29 augusti 2026</h2>
       <div id="countdown"></div>
       <script src="/assets/script.js"></script>
