@@ -182,7 +182,7 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 300px 300px;
+      grid-auto-rows: 250px;
       gap: .5rem;
       margin-top: .5rem;
     }
@@ -250,24 +250,31 @@
     .map-container iframe { width: 100%; height: 320px; border: none; display: block; }
 
     /* ── OSA ── */
-    #osa { background: var(--black); color: var(--white); }
-    #osa .section-kicker { color: rgba(255,255,255,.4); }
-    #osa h2 { color: var(--white); }
-    #osa > .container > p { color: rgba(255,255,255,.5); max-width: none; }
-    .osa-intro { text-align: center; margin-bottom: 2.5rem; }
-    .osa-intro p { color: rgba(255,255,255,.55); margin: 0 auto; }
+    #osa { background: var(--white); color: var(--black); }
+    #osa .section-kicker { color: var(--muted); }
+    #osa h2 { color: var(--black); }
+    .osa-intro { text-align: left; margin-bottom: 2.5rem; }
+    .osa-intro p { color: var(--muted); margin: 0; }
+
     .form-container {
       background: var(--white);
       overflow: hidden;
       max-width: 720px;
       margin: 0 auto;
     }
+
     .form-container iframe {
-      width: 100%; border: none; min-height: 1200px; display: block;
+      width: calc(100% + 4px);
+      margin-left: -2px;
+      border: none;
+      min-height: 1400px;
+      display: block;
     }
+
     @media (max-width: 600px) {
-      .form-container iframe { min-height: 1450px; }
+      .form-container iframe { min-height: 1650px; }
     }
+
 
     /* ── BUTTONS ── */
     .btn {
@@ -386,11 +393,11 @@
 
   <div class="container-wide" style="margin-top:4rem;">
     <div class="gallery-grid reveal">
-      <div class="gallery-cell tall"><img src="img/gallery_1.jpeg" alt="" /></div>
+      <div class="gallery-cell"><img src="img/gallery_1.jpeg" alt="" /></div>
       <div class="gallery-cell"><img src="img/gallery_2.jpeg" alt="" /></div>
       <div class="gallery-cell"><img src="img/gallery_3.jpeg" alt="" /></div>
-      <div class="gallery-cell wide"><img src="img/gallery_4.jpeg" alt="" /></div>
-      <div class="gallery-cell"><div class="photo-placeholder">Foto 5</div></div>
+      <div class="gallery-cell"><img src="img/gallery_4.jpeg" alt="" /></div>
+      <div class="gallery-cell wide"><img src="img/gallery_5.jpeg" alt="" /></div>
     </div>
   </div>
 </section>
@@ -612,7 +619,7 @@
 <section id="osa">
   <div class="container">
     <p class="section-kicker reveal">Anmäl dig</p>
-    <h2 class="reveal">OSA</h2>
+    <h2 class="reveal">OSA <em>här.</em></h2>
     <div class="osa-intro reveal">
       <p>Vänligen OSA senast den 31 maj. Vi ser fram emot att fira denna speciella dag tillsammans med er!</p>
     </div>
