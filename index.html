@@ -249,12 +249,6 @@
     .map-container { margin-top: 2.5rem; border: 1px solid var(--mid); overflow: hidden; }
     .map-container iframe { width: 100%; height: 320px; border: none; display: block; }
 
-    /* ── OSA ── */
-    #osa { background: var(--white); color: var(--black); }
-    #osa .section-kicker { color: var(--muted); }
-    #osa h2 { color: var(--black); }
-    .osa-intro { text-align: left; margin-bottom: 2.5rem; }
-    .osa-intro p { color: var(--muted); margin: 0; }
 
     .form-container {
       background: var(--white);
@@ -344,7 +338,6 @@
     <li><a href="#toast">Toastmasters</a></li>
     <li><a href="#presenter">Presenter</a></li>
     <li><a href="#boende">Platser & Boende</a></li>
-    <li><a href="#osa">OSA</a></li>
   </ul>
 
   <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
@@ -356,7 +349,6 @@
   <a href="#toast" class="menu-link">Toastmasters</a>
   <a href="#presenter" class="menu-link">Presenter</a>
   <a href="#boende" class="menu-link">Platser & Boende</a>
-  <a href="#osa" class="menu-link">OSA</a>
 </div>
 
 
@@ -372,7 +364,6 @@
         <h2>Vi gifter oss <em>äntligen!</em></h2>
         <p>Bröllopsfirandet smygstartar redan på fredagen den 28:e augusti. Själva vigseln sker på lördagen den 29:e augusti i den lilla sköna staden Askersund.</p>
         <p>Bröllopet äger rum i Askersunds landskyrka, sedan bär det av för middag och fest på Stjernsunds slott.</p>
-
         <div class="countdown-boxes" id="countdown-boxes" style="margin-top:1.5rem;">
           <div class="countdown-box"><span class="countdown-num" id="cd-days">–</span><span class="countdown-lbl">Dagar</span></div>
           <div class="countdown-box"><span class="countdown-num" id="cd-hours">–</span><span class="countdown-lbl">Timmar</span></div>
@@ -380,9 +371,11 @@
           <div class="countdown-box"><span class="countdown-num" id="cd-sec">–</span><span class="countdown-lbl">Sekunder</span></div>
         </div>
 
-        <a class="btn btn-dark" style="margin-top:1.5rem;"
-          href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MDByY2ZzZjMyazhtbWhtZmc1aTMxOXM2OWUgcmFzbXVzLmJ1cmdlLnJiQG0&tmsrc=rasmus.burge.rb%40gmail.com"
-          target="_blank">📅 Spara datumet</a>
+        <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:1rem;">
+          <a class="btn btn-dark"
+            href="https://photos.app.goo.gl/BGEBGiEBhy5GmF8NA"
+            target="_blank">📸 Dela dina bilder</a>
+        </div>
 
       </div>
       <div class="intro-img">
@@ -611,23 +604,6 @@
         </p></div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- OSA -->
-<section id="osa">
-  <div class="container">
-    <p class="section-kicker reveal">Anmäl dig</p>
-    <h2 class="reveal">OSA <em>här.</em></h2>
-    <div class="osa-intro reveal">
-      <p>Vänligen OSA senast den 31 maj. Vi ser fram emot att fira denna speciella dag tillsammans med er!</p>
-    </div>
-    <div class="form-container reveal">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScude4nPCoDx1bkS0fjuUohW445YGJHivOsD05OthrDjVq8Tg/viewform?embedded=true">Loading…
-      </iframe>
     </div>
   </div>
 </section>
